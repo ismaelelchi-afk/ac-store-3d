@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0c2b5e" />
+    <title>A/C Store 3D</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <canvas id="scene"></canvas>
+    <div class="brand" aria-hidden="true"><span class="brand-mark">A/C</span><span class="brand-name">Store 3D</span></div>
+    <p id="hint" class="hint">Arrastra para mirar alrededor</p>
+    <nav id="views" class="views" aria-label="Puntos de vista"></nav>
+    <div id="free-camera-ui" class="free-ui" hidden>
+      <button
+        id="free-camera-exit"
+        class="free-exit"
+        type="button"
+        aria-label="Sair do modo câmera livre"
+      >
+        SAIR
+      </button>
+      <div
+        id="free-camera-joystick"
+        class="free-joystick"
+        role="group"
+        aria-label="Joystick de movimento"
+      >
+        <div id="free-camera-joystick-knob" class="free-joystick-knob"></div>
+      </div>
+      <div class="free-height" role="group" aria-label="Altura da câmera">
+        <button
+          id="free-camera-up"
+          class="free-height-button"
+          type="button"
+          aria-label="Subir a câmera"
+        >
+          <span class="free-height-icon" aria-hidden="true">↑</span>
+          <span>Subir</span>
+        </button>
+        <button
+          id="free-camera-down"
+          class="free-height-button"
+          type="button"
+          aria-label="Descer a câmera"
+        >
+          <span class="free-height-icon" aria-hidden="true">↓</span>
+          <span>Descer</span>
+        </button>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

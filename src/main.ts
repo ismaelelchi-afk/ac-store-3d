@@ -16,9 +16,9 @@ import {
 } from './ui/commercialViewEditor';
 
 /**
- * A/C Store 3D — escena estática con cámara de pie. Solo se dibuja cuando algo cambia
- * (arrastre, transición de cámara, cambio de tamaño, vuelta a primer plano), lo que ahorra
- * batería en el teléfono.
+ * A/C Store 3D — escena con cámara de pie y mesa central giratoria. El render se mantiene
+ * activo mientras la mesa gira y también ante arrastre, transición de cámara, cambio de
+ * tamaño o vuelta a primer plano.
  */
 const canvas = document.getElementById('scene') as HTMLCanvasElement;
 const camera = new Camera();
@@ -196,17 +196,19 @@ function finishFreeCameraExit(): void {
 
 function frame(now: number): void {
   frameId = 0;
+  const delta = frameDelta(now);
   let moving: boolean;
   if (freeCameraMode.exitTransition) {
     moving = updateFreeCameraExit(now);
   } else if (freeCameraMode.active) {
-    moving = freeCamera.update(frameDelta(now));
+    moving = freeCamera.update(delta);
   } else {
     moving = rig.update(now);
   }
+  const carouselMoving = store.update(delta);
   renderer.renderer.render(store.scene, camera.camera);
   syncNav();
-  if (moving) {
+  if (moving || carouselMoving) {
     requestRender();
   }
 }

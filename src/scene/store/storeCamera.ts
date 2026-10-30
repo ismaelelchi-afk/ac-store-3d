@@ -70,8 +70,8 @@ const easeInOut = (t: number): number => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow
  * los botones saltan con una transición suave a puntos de vista fijos. No hay desplazamiento
  * libre, así que no necesita colisiones.
  *
- * La escena es estática: el rig avisa con `onChange` cuando hay que volver a dibujar y
- * `update()` devuelve `true` mientras dura una transición.
+ * El rig avisa con `onChange` cuando hay que volver a dibujar y `update()` devuelve `true`
+ * mientras dura una transición; la mesa giratoria mantiene el render activo por su cuenta.
  */
 export class CameraRig {
   public onChange: () => void = () => {};

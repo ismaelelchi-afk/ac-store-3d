@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { buildArchitecture } from './architecture';
 import { StaticBatch } from './batch';
+import { CarouselTable } from './carouselTable';
 import { COLORS } from './constants';
 import type { StoreContext } from './context';
 import { buildCounterDepartment } from './departments/counterDepartment';
@@ -35,13 +36,14 @@ const RENDER_ORDER: Record<string, number> = {
  * Escena de la tienda A/C Store 3D: local comercial pequeño-mediano para tazas de café y
  * garrafas de agua, construido solo con geometría procedural de Three.js.
  *
- * Es una escena estática: no tiene animación propia, por lo que `main.ts` solo renderiza
- * cuando la cámara se mueve, al redimensionar la ventana o al volver a primer plano.
+ * Incluye una mesa central giratoria; `main.ts` mantiene el render activo mientras gira y
+ * también cuando la cámara se mueve, se redimensiona la ventana o se vuelve a primer plano.
  */
 export class StoreScene {
   public readonly scene = new THREE.Scene();
   public readonly batch: StaticBatch;
   public readonly products: ProductLibrary;
+  public readonly carousel: CarouselTable;
 
   private readonly mats: Materials;
   private readonly signage: Signage;
@@ -59,6 +61,7 @@ export class StoreScene {
     this.batch = new StaticBatch(options.trackBounds === true);
     this.products = new ProductLibrary(this.batch, this.mats);
     this.signage = new Signage(this.batch, this.mats);
+    this.carousel = new CarouselTable();
 
     const ctx: StoreContext = {
       batch: this.batch,
@@ -96,6 +99,7 @@ export class StoreScene {
     this.scene.add(built);
     this.scene.add(this.signage.group);
     this.scene.add(this.products.overrides);
+    this.scene.add(this.carousel.group);
     this.scene.add(createStoreLights());
   }
 
@@ -113,10 +117,12 @@ export class StoreScene {
     }
   }
 
-  /** La tienda es estática; existe para compartir la interfaz con otras escenas. */
-  animate(): void {}
+  update(deltaSeconds: number): boolean {
+    return this.carousel.update(deltaSeconds);
+  }
 
   dispose(): void {
+    this.carousel.dispose();
     this.scene.traverse((object) => {
       if (object instanceof THREE.Mesh) {
         object.geometry.dispose();

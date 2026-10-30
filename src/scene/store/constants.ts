@@ -93,11 +93,36 @@ export interface Viewpoint {
   target: readonly [number, number, number];
 }
 
-/** Puntos de vista de pie (altura de ojos 1,62 m). El primero es la vista inicial. */
+/** Puntos de vista comerciales oficiales. El primero es la vista inicial. */
 export const VIEWPOINTS: readonly Viewpoint[] = [
-  { id: 'entrada', label: 'Entrada', position: [0, 1.62, 7.6], target: [0, 1.75, -9] },
-  { id: 'tazas', label: 'Tazas', position: [-2.2, 1.62, 3.6], target: [-6.9, 1.5, -2.8] },
-  { id: 'garrafas', label: 'Garrafas', position: [2.2, 1.62, 3.6], target: [6.9, 1.2, -4.2] },
-  { id: 'caja', label: 'Caja', position: [0.2, 1.62, 2.4], target: [4.6, 1.15, 6.6] },
-  { id: 'regalos', label: 'Regalos', position: [-0.2, 1.62, 2.4], target: [-4.6, 1.1, 6.6] },
+  {
+    id: 'entrada',
+    label: 'Entrada',
+    position: [-0.022179532233413915, 1.6817399999999894, 1.484696841588981],
+    target: [0.1479292620935746, -6.230368834965635, -13.107989572562168],
+  },
+  {
+    id: 'tazas',
+    label: 'Tazas',
+    position: [-3.2234198897356774, 1.62, 3.7946254169900326],
+    target: [-3.4343652394258823, -4.672125420535165, -11.565763892910265],
+  },
+  {
+    id: 'garrafas',
+    label: 'Garrafas',
+    position: [3.3450072112777534, 2.0233399999999877, -6.1539069178334485],
+    target: [6.20197067545619, -1.040965053013486, -22.21705400383206],
+  },
+  {
+    id: 'caja',
+    label: 'Caja',
+    position: [-0.047480409085998765, 2.0233399999999877, 6.4003054034383755],
+    target: [16.31842294847894, -0.6578196420826479, 7.138878530834709],
+  },
+  {
+    id: 'regalos',
+    label: 'Regalos',
+    position: [-2.0359839728607683, 1.6040399999999884, 6.318125822736411],
+    target: [-14.487172999189976, -6.553907341878913, -1.029845801987653],
+  },
 ];
